@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rss-bfb-ms-store-mongo-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rss-bfb-ms-store-mongo
+  template:
+    metadata:
+      labels:
+        app: rss-bfb-ms-store-mongo
+    spec:
+      containers:
+        - name: rss-bfb-ms-store-mongo
+          image: mongo
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: rss-bfb-ms-store-mongo-srv
+spec:
+  selector:
+    app: rss-bfb-ms-store-mongo
+  ports:
+    - name: db
+      protocol: TCP
+      port: 27017
+      targetPort: 27017

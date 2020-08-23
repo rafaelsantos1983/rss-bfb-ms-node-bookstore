@@ -1,0 +1,27 @@
+apiVersion: skaffold/v2alpha3
+kind: Config
+deploy:
+  statusCheckDeadlineSeconds: 600
+  kubectl:
+    manifests:
+      - rss-bfb-ms-infra/k8s/*
+build:
+  local:
+    push: false
+  artifacts:
+    - image: rss/rss-bfb-ms-book
+      context: .
+      docker:
+        dockerfile: book.Dockerfile
+      sync:
+        manual:
+          - src: "src/**/*.ts"
+            dest: .
+    - image: rss/rss-bfb-ms-store
+      context: .
+      docker:
+        dockerfile: store.Dockerfile
+      sync:
+        manual:
+          - src: "src/**/*.ts"
+            dest: .

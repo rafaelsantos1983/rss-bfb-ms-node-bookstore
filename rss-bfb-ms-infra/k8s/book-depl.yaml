@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rss-bfb-ms-book-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rss-bfb-ms-book
+  template:
+    metadata:
+      labels:
+        app: rss-bfb-ms-book
+    spec:
+      containers:
+        - name: rss-bfb-ms-book
+          image: rss/rss-bfb-ms-book
+          env:
+            - name: MONGO_URI
+              value: "mongodb://rss-bfb-ms-book-mongo-srv:27017/books"
+            - name: NATS_CLIENT_ID
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: NATS_URL
+              value: "http://nats-srv:4222"
+            - name: NATS_CLUSTER_ID
+              value: store-nats
+            - name: LOGGER_LEVEL
+              value: combined
+            - name: JWT_SECRET
+              value: rssbookstoresecret
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: rss-bfb-ms-book-srv
+spec:
+  selector:
+    app: rss-bfb-ms-book
+  ports:
+    - name: rss-bfb-ms-book
+      protocol: TCP
+      port: 3000
+      targetPort: 3000
