@@ -7,6 +7,5 @@ Bookstore
  
 Made with Node.js in microservices (NATS Streaming Server) 
 
-
-
+![Architecture](https://github.com/[rafaelsantos1983]/[rss-bfb-ms-node-bookstore]/blob/[master]/architecture.jpg?raw=true)
 
