@@ -20,7 +20,7 @@
   "dependencies": {
     "@rss/rss-bfb-ms-common": "file:../rss-bfb-ms-common",
     "axios": "^0.19.2",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "express-async-errors": "^3.1.1",
     "express-jwt": "^6.0.0",
     "express-validator": "^6.6.0",
